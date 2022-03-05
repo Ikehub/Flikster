@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         rvMovies = findViewById(R.id.rvMovies)
 
-        val movieAdapter = MovieAdapter(this, movies)
+        val orientation = resources.configuration.orientation
+        val movieAdapter = MovieAdapter(this, movies, orientation)
         rvMovies.adapter = movieAdapter
         rvMovies.layoutManager = LinearLayoutManager(this)
 

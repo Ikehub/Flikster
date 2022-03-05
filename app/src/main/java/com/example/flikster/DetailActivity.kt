@@ -3,6 +3,7 @@ package com.example.flikster
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.RatingBar
 import android.widget.TextView
 import com.codepath.asynchttpclient.AsyncHttpClient
@@ -85,5 +86,15 @@ class DetailActivity : YouTubeBaseActivity() {
             }
 
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finishAfterTransition()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -1,5 +1,7 @@
 package com.example.flikster
 
+import android.R.attr
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -8,9 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
+import android.R.attr.radius
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
+
 
 const val MOVIE_EXTRA = "MOVIE_EXTRA"
 private const val TAG = "MovieAdapter"
@@ -45,7 +51,11 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
             tvTitle.text = movie.title
             tvOverview.text = movie.overview
             if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                Glide.with(context).load(movie.posterImageUrl).into(ivPoster)
+                Glide.with(context)
+                    .load(movie.posterImageUrl)
+                    .centerCrop()
+                    .transform(RoundedCornersTransformation(30, 10))
+                    .into(ivPoster)
             } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 Glide.with(context).load(movie.backdropImageUrl).into(ivBackdrop)
             }
@@ -56,7 +66,14 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
 
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(MOVIE_EXTRA, movie)
-            context.startActivity(intent)
+            val titlePair = Pair.create(tvTitle as View, "movieTitle")
+            val overviewPair = Pair.create(tvOverview as View, "movieOverview")
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                context as Activity,
+                titlePair,
+                overviewPair
+            )
+            context.startActivity(intent, options.toBundle())
         }
     }
 }

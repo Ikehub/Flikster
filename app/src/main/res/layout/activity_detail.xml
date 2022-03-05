@@ -20,7 +20,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:text="The Batman" />
+        android:text="The Batman"
+        android:transitionName="movieTitle"/>
 
     <RatingBar
         android:id="@+id/rbVoteAverage"
@@ -42,5 +43,6 @@
         android:text="In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler."
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginEnd="8dp"
+        android:transitionName="movieOverview"/>
 </LinearLayout>
